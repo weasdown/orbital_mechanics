@@ -8,7 +8,7 @@ from utils.rotations import rot2, rot3
 
 
 # TODO add missing argument type hints once types known.
-def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1, d_at, x_p, y_p, phi_gd: float, lda: float, h_ellp: float) -> list[float]:
+def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: float, d_at: float, x_p, y_p, phi_gd: float, lda: float, h_ellp: float) -> list[float]:
     """
     Calculates a spacecraft's range, azimuth, elevation, and the rates of these, from a point on the ground.
     
@@ -91,7 +91,7 @@ def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1, d_at
 
 
 # TODO add missing argument type hints once types known.
-def fk5(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1, d_at, x_p, y_p) -> list[np.ndarray]:
+def fk5(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: float, d_at: float, x_p, y_p) -> list[np.ndarray]:
     """
     Converts position and velocity vectors in the ECI frame to the ECEF frame.
 
