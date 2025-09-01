@@ -3,7 +3,7 @@
 
 from datetime import datetime
 import numpy as np
-from numpy import sin, cos
+from numpy import sin, cos, asin, deg2rad, sqrt, dot
 from utils.rotations import rot2, rot3
 
 
@@ -45,21 +45,40 @@ def razel(r_ECI: np.ndarray, v_ECI: np.ndarray, datetime: datetime, dUT1, dAT, x
     assert(rot2_90_minus_phi_gd * rot3_lambda == sez_over_ecef)
 
     rho_sez: np.ndarray = sez_over_ecef * rho_ecef
-    rho_sez_dot: np.ndarray = sez_over_ecef * rho_dot_ecef
+    rho_dot_sez: np.ndarray = sez_over_ecef * rho_dot_ecef
 
     rho: float = float(np.linalg.norm(rho_sez))
 
-    sin_el: float = float(rho_sez / rho)  # Book says rho_z rather than rho_sez for first value but unclear what rho_z is.
+    rho_s: float = rho_sez[0]  # S component of rho SEZ vector
+    rho_e: float = rho_sez[1]  # E component of rho SEZ vector
+    rho_z: float = rho_sez[2]  # Z component of rho SEZ vector
 
-    ...
+    rho_dot_s: float = rho_dot_sez[0]  # S component of rho dot SEZ vector
+    rho_dot_e: float = rho_dot_sez[1]  # E component of rho dot SEZ vector
+    rho_dot_z: float = rho_dot_sez[2]  # Z component of rho dot SEZ vector
 
-    # FIXME fix placeholder values for outputs.
-    beta: float = 0.0
-    el: float = 0.0
 
-    rho_dot: float = 0.0
-    beta_dot: float = 0.0
-    el_dot: float = 0.0
+    # Book says rho_z rather than rho_sez for first value but unclear what rho_z is.
+    sin_el: float = float(rho_sez / rho)
+    el: float = float(asin(rho_z / rho))  # radians
+
+    rs_sq_re_sq: float = rho_s ** 2 + rho_e ** 2
+    sqrt_rs_sq_re_sq: float = sqrt(rho_s ** 2 + rho_e ** 2)
+    sqrt_rsdot_sq_redot_sq: float = sqrt(rho_dot_s ** 2 + rho_dot_e ** 2)
+
+    if el != deg2rad(90):  # el is not 90 degrees
+        sin_beta = rho_e / sqrt_rs_sq_re_sq
+        # cos_beta = -rho_s / sqrt_rs_sq_re_sq
+
+    else:  # el is 90 degrees
+        sin_beta = rho_dot_e / sqrt_rsdot_sq_redot_sq
+        # cos_beta = -rho_dot_s / sqrt_rsdot_sq_redot_sq
+
+    beta: float = asin(sin_beta)
+
+    rho_dot: float = dot(rho_sez, rho_dot_sez) / rho
+    beta_dot: float = (rho_dot_s * rho_e - rho_dot_e * rho_s) / rs_sq_re_sq
+    el_dot: float = (rho_dot_z - rho_dot * sin_el) / (sqrt_rs_sq_re_sq)
 
     return [rho, beta, el, rho_dot, beta_dot, el_dot]
 
