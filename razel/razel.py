@@ -31,7 +31,8 @@ def razel(r_ECI: np.ndarray, v_ECI: np.ndarray, datetime: datetime, dUT1, dAT, x
     return [rho, beta, el, rho_dot, beta_dot, el_dot]
 
 
-def fk5() -> list[np.ndarray]:
+# TODO add missing argument type hints once types known.
+def fk5(r_ECI: np.ndarray, v_ECI: np.ndarray, datetime: datetime, dUT1, dAT, x_p, y_p) -> list[np.ndarray]:
     """
     Converts position and velocity vectors in the ECI frame to the ECEF frame.
     """
@@ -43,7 +44,8 @@ def fk5() -> list[np.ndarray]:
     return [r_ecef, v_ecef]
 
 
-def site() -> np.ndarray:
+# TODO add missing argument type hints once types known.
+def site(phi_gd, lda, h_ellp) -> np.ndarray:
     """
     Calculates the ECEF position vector for a site on the Earth's surface.
     """
