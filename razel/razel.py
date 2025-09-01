@@ -1,7 +1,11 @@
 # Calculates spacecraft azimuth and elevation from a site on the Earth.
 # For full details, see Algorithm 27 (RAZEL) on page 265 of Fundamentals of Astrodynamics and Applications (4th ed.) by David A Vallado.
 
-def razel():
+import numpy as np
+from datetime import datetime
+
+# TODO add missing argument type hints once types known.
+def razel(r_ECI: np.ndarray, v_ECI: np.ndarray, datetime: datetime, dUT1, dAT, x_p, y_p, phi_gd, lda, h_ellp) -> list[float]:
     """
     Calculates a spacecraft's range, azimuth, elevation, and the rates of these, from a point on the ground.
     
@@ -13,7 +17,17 @@ def razel():
 
     Based on Algorithm 27 on page 265 of Fundamentals of Astrodynamics and Applications (4th ed.) by David A Vallado.
     """
-    pass
+
+    # FIXME fix placeholder values for outputs.
+    rho: float = 0.0
+    beta: float = 0.0
+    el: float = 0.0
+
+    rho_dot: float = 0.0
+    beta_dot: float = 0.0
+    el_dot: float = 0.0
+
+    return [rho, beta, el, rho_dot, beta_dot, el_dot]
 
 if __name__ == '__main__':
     pass
