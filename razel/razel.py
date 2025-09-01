@@ -37,11 +37,13 @@ def fk5(r_ECI: np.ndarray, v_ECI: np.ndarray, datetime: datetime, dUT1, dAT, x_p
     Converts position and velocity vectors in the ECI frame to the ECEF frame.
     """
     
-    # FIXME fix placeholder values for outputs.
-    r_ecef: np.ndarray = np.ndarray([])
-    v_ecef: np.ndarray = np.ndarray([])
+    raise NotImplementedError
 
-    return [r_ecef, v_ecef]
+    # # FIXME fix placeholder values for outputs.
+    # r_ecef: np.ndarray = np.ndarray([])
+    # v_ecef: np.ndarray = np.ndarray([])
+
+    # return [r_ecef, v_ecef]
 
 
 # TODO add missing argument type hints once types known.
@@ -50,9 +52,11 @@ def site(phi_gd, lda, h_ellp) -> np.ndarray:
     Calculates the ECEF position vector for a site on the Earth's surface.
     """
     
-    # FIXME fix placeholder value for output.
-    r_site_ecef: np.ndarray = np.ndarray([])
-    return r_site_ecef
+    raise NotImplementedError
+
+    # # FIXME fix placeholder value for output.
+    # r_site_ecef: np.ndarray = np.ndarray([])
+    # return r_site_ecef
 
 
 if __name__ == '__main__':
