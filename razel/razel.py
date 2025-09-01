@@ -8,7 +8,7 @@ from utils.rotations import rot2, rot3
 
 
 # TODO add missing argument type hints once types known.
-def razel(r_ECI: np.ndarray, v_ECI: np.ndarray, datetime: datetime, dUT1, dAT, x_p, y_p, phi_gd, lda, h_ellp) -> list[float]:
+def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1, d_at, x_p, y_p, phi_gd, lda, h_ellp) -> list[float]:
     """
     Calculates a spacecraft's range, azimuth, elevation, and the rates of these, from a point on the ground.
     
@@ -23,7 +23,7 @@ def razel(r_ECI: np.ndarray, v_ECI: np.ndarray, datetime: datetime, dUT1, dAT, x
 
     r_ecef: np.ndarray
     v_ecef: np.ndarray
-    r_ecef, v_ecef = fk5(r_ECI, v_ECI, datetime, dUT1, dAT, x_p, y_p)
+    r_ecef, v_ecef = fk5(r_eci, v_eci, date_time, d_ut1, d_at, x_p, y_p)
 
     r_site_ecef: np.ndarray = site(phi_gd, lda, h_ellp)
 
@@ -49,13 +49,13 @@ def razel(r_ECI: np.ndarray, v_ECI: np.ndarray, datetime: datetime, dUT1, dAT, x
 
     rho: float = float(np.linalg.norm(rho_sez))
 
-    rho_s: float = rho_sez[0]  # S component of rho SEZ vector
-    rho_e: float = rho_sez[1]  # E component of rho SEZ vector
-    rho_z: float = rho_sez[2]  # Z component of rho SEZ vector
+    rho_s: float = float(rho_sez[0])  # S component of rho SEZ vector
+    rho_e: float = float(rho_sez[1])  # E component of rho SEZ vector
+    rho_z: float = float(rho_sez[2])  # Z component of rho SEZ vector
 
-    rho_dot_s: float = rho_dot_sez[0]  # S component of rho dot SEZ vector
-    rho_dot_e: float = rho_dot_sez[1]  # E component of rho dot SEZ vector
-    rho_dot_z: float = rho_dot_sez[2]  # Z component of rho dot SEZ vector
+    rho_dot_s: float = float(rho_dot_sez[0])  # S component of rho dot SEZ vector
+    rho_dot_e: float = float(rho_dot_sez[1])  # E component of rho dot SEZ vector
+    rho_dot_z: float = float(rho_dot_sez[2])  # Z component of rho dot SEZ vector
 
 
     # Book says rho_z rather than rho_sez for first value but unclear what rho_z is.
@@ -64,27 +64,27 @@ def razel(r_ECI: np.ndarray, v_ECI: np.ndarray, datetime: datetime, dUT1, dAT, x
 
     rs_sq_re_sq: float = rho_s ** 2 + rho_e ** 2
     sqrt_rs_sq_re_sq: float = sqrt(rho_s ** 2 + rho_e ** 2)
-    sqrt_rsdot_sq_redot_sq: float = sqrt(rho_dot_s ** 2 + rho_dot_e ** 2)
+    sqrt_rs_dot_sq_re_dot_sq: float = sqrt(rho_dot_s ** 2 + rho_dot_e ** 2)
 
     if el != deg2rad(90):  # el is not 90 degrees
         sin_beta = rho_e / sqrt_rs_sq_re_sq
         # cos_beta = -rho_s / sqrt_rs_sq_re_sq
 
     else:  # el is 90 degrees
-        sin_beta = rho_dot_e / sqrt_rsdot_sq_redot_sq
-        # cos_beta = -rho_dot_s / sqrt_rsdot_sq_redot_sq
+        sin_beta = rho_dot_e / sqrt_rs_dot_sq_re_dot_sq
+        # cos_beta = -rho_dot_s / sqrt_rs_dot_sq_re_dot_sq
 
     beta: float = asin(sin_beta)
 
     rho_dot: float = dot(rho_sez, rho_dot_sez) / rho
     beta_dot: float = (rho_dot_s * rho_e - rho_dot_e * rho_s) / rs_sq_re_sq
-    el_dot: float = (rho_dot_z - rho_dot * sin_el) / (sqrt_rs_sq_re_sq)
+    el_dot: float = (rho_dot_z - rho_dot * sin_el) / sqrt_rs_sq_re_sq
 
     return [rho, beta, el, rho_dot, beta_dot, el_dot]
 
 
 # TODO add missing argument type hints once types known.
-def fk5(r_ECI: np.ndarray, v_ECI: np.ndarray, datetime: datetime, dUT1, dAT, x_p, y_p) -> list[np.ndarray]:
+def fk5(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1, d_at, x_p, y_p) -> list[np.ndarray]:
     """
     Converts position and velocity vectors in the ECI frame to the ECEF frame.
     """
