@@ -8,12 +8,16 @@ from utils.rotations import rot2, rot3
 
 
 # TODO add missing argument type hints once types known.
-def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1, d_at, x_p, y_p, phi_gd, lda, h_ellp) -> list[float]:
+def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1, d_at, x_p, y_p, phi_gd: float, lda: float, h_ellp: float) -> list[float]:
     """
     Calculates a spacecraft's range, azimuth, elevation, and the rates of these, from a point on the ground.
     
     Inputs:
     r_ECI, v_ECI, yr, mo, day, UTC, ΔUT1, ΔAT, x_p, y_p, φ_gd, λ, h_ellp
+
+    φ_gd: latitude, with North being positive.
+    λ: longitude in degrees, with West being negative.
+    h_ellp: height above mean sea level in metres.
 
     Outputs: 
     ρ, β, el, ρ_dot, β_dot, el_dot
@@ -88,7 +92,6 @@ def fk5(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1, d_at, 
     """
     Converts position and velocity vectors in the ECI frame to the ECEF frame.
     """
-    
     raise NotImplementedError
 
     # # FIXME fix placeholder values for outputs.
@@ -99,9 +102,13 @@ def fk5(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1, d_at, 
 
 
 # TODO add missing argument type hints once types known.
-def site(phi_gd, lda, h_ellp) -> np.ndarray:
+def site(phi_gd: float, lda: float, h_ellp: float) -> np.ndarray:
     """
     Calculates the ECEF position vector for a site on the Earth's surface.
+
+    phi_gd: latitude, with North being positive.
+    lda (λ): longitude in degrees, with West being negative.
+    h_ellp: height above mean sea level in metres.
     """
     
     raise NotImplementedError
