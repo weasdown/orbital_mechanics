@@ -4,6 +4,7 @@
 import numpy as np
 from datetime import datetime
 
+
 # TODO add missing argument type hints once types known.
 def razel(r_ECI: np.ndarray, v_ECI: np.ndarray, datetime: datetime, dUT1, dAT, x_p, y_p, phi_gd, lda, h_ellp) -> list[float]:
     """
@@ -28,6 +29,29 @@ def razel(r_ECI: np.ndarray, v_ECI: np.ndarray, datetime: datetime, dUT1, dAT, x
     el_dot: float = 0.0
 
     return [rho, beta, el, rho_dot, beta_dot, el_dot]
+
+
+def fk5() -> list[np.ndarray]:
+    """
+    Converts position and velocity vectors in the ECI frame to the ECEF frame.
+    """
+    
+    # FIXME fix placeholder values for outputs.
+    r_ecef: np.ndarray = np.ndarray([])
+    v_ecef: np.ndarray = np.ndarray([])
+
+    return [r_ecef, v_ecef]
+
+
+def site() -> np.ndarray:
+    """
+    Calculates the ECEF position vector for a site on the Earth's surface.
+    """
+    
+    # FIXME fix placeholder value for output.
+    r_site_ecef: np.ndarray = np.ndarray([])
+    return r_site_ecef
+
 
 if __name__ == '__main__':
     pass
