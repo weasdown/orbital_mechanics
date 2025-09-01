@@ -15,6 +15,9 @@ def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1, d_at
     Inputs:
     r_ECI, v_ECI, yr, mo, day, UTC, ΔUT1, ΔAT, x_p, y_p, φ_gd, λ, h_ellp
 
+    d_ut1 (ΔUT1): an observed time correction value to align UT1 with UTC. This should be less than 0.9 seconds, e.g. 0.463326 seconds.
+    d_at (ΔAT): an atomic time correction value obtained from the [Astronomical Almanac](https://aa.usno.navy.mil/publications/asa), e.g. 32 seconds.
+
     φ_gd: latitude, with North being positive.
     λ: longitude in degrees, with West being negative.
     h_ellp: height above mean sea level in metres.
@@ -91,6 +94,9 @@ def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1, d_at
 def fk5(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1, d_at, x_p, y_p) -> list[np.ndarray]:
     """
     Converts position and velocity vectors in the ECI frame to the ECEF frame.
+
+    d_ut1 (ΔUT1): an observed time correction value to align UT1 with UTC. This should be less than 0.9 seconds, e.g. 0.463326 seconds.
+    d_at (ΔAT): an atomic time correction value obtained from the [Astronomical Almanac](https://aa.usno.navy.mil/publications/asa), e.g. 32 seconds.
     """
     raise NotImplementedError
 
