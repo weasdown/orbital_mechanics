@@ -9,31 +9,40 @@ from utils.rotations import rot2, rot3
 
 # TODO add missing argument type hints once types known.
 def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: float, d_at: float, x_p: float, y_p: float, phi_gd: float, lda: float, h_ellp: float) -> list[float]:
-    """
-    Calculates a spacecraft's range, azimuth, elevation, and the rates of these, from a point on the ground.
-    
-    Inputs:
-    r_ECI, v_ECI, yr, mo, day, UTC, ΔUT1, ΔAT, x_p, y_p, φ_gd, λ, h_ellp
+    """Calculates a spacecraft's range, azimuth, elevation, and the rates of these, from an observation site on the ground.
 
-    d_ut1 (ΔUT1): an observed time correction value to align UT1 with UTC. This should be less than 0.9 seconds, e.g. 0.463326 seconds.
-    d_at (ΔAT): an atomic time correction value obtained from the [Astronomical Almanac](https://aa.usno.navy.mil/publications/asa), e.g. 32 seconds.
-    As of September 2nd, 2025, this stands at 37 seconds, according to the [International Earth Rotation and Reference
-    Systems Service (IERS)](https://www.iers.org/IERS/EN/Home/home_node.html), which is the authority on this.
-    Their [Bulletin C of July 7th, 2025](https://datacenter.iers.org/data/latestVersion/bulletinC.txt), also confirms
-    that no leap second will be added at the end of December 2025, so ΔAT will remain at 37 seconds until further notice.
-    x_p (x pole): value in arcseconds that, together with `y_p`, defines the Earth's orientation. Published in milliarcseconds
-    by the [IERS](https://www.iers.org/IERS/EN/Home/home_node.html) as [Bulletins A](https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html).
-    y_p (y pole): value in arcseconds that, together with `x_p`, defines the Earth's orientation. Published in milliarcseconds
-    by the [IERS](https://www.iers.org/IERS/EN/Home/home_node.html) as [Bulletins A](https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html).
+    :param r_eci: spacecraft position vector in the Earth-centred inertial (ECI) reference frame.
+    :type r_eci: np.ndarray
+    :param v_eci: spacecraft velocity vector in the Earth-centred inertial (ECI) reference frame.
+    :type v_eci: np.ndarray
+    :param date_time: the current UTC date and time.
+    :type date_time: datetime.datetime
+    :param d_ut1: ΔUT1, an observed time correction value to align UT1 with UTC. This should be less than 0.9 seconds, e.g. 0.463326 seconds.
+    :type d_ut1: float
+    :param d_at: (ΔAT) an atomic time correction value obtained from the `Astronomical Almanac <https://aa.usno.navy.mil/publications/asa>`__, e.g. 32 seconds. As of September 2nd, 2025, this stands at 37 seconds, according to the `International Earth Rotation and Reference Systems Service, IERS <https://www.iers.org/IERS/EN/Home/home_node.html>`__, which is the authority on this. Their `Bulletin C of July 7th, 2025 <https://datacenter.iers.org/data/latestVersion/bulletinC.txt>`__, also confirms that no leap second will be added at the end of December 2025, so ΔAT will remain at 37 seconds until further notice.
+    :type d_at: int
+    :param x_p: (x pole) value in arcseconds that, together with ``y_p``, defines the Earth's orientation. Published in milliarcseconds by the `IERS <https://www.iers.org/IERS/EN/Home/home_node.html>`__ as `Bulletins A <https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html>`__.
+    :type x_p: float
+    :param y_p: (y pole) value in arcseconds that, together with ``x_p``, defines the Earth's orientation. Published in milliarcseconds by the `IERS <https://www.iers.org/IERS/EN/Home/home_node.html>`__ as `Bulletins A <https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html>`__.
+    :type y_p: float
+    :param phi_gd: the observation site's latitude in degrees, with North being positive.
+    :type phi_gd: float
+    :param lda: (λ) the observation site's longitude in degrees, with West being negative.
+    :type lda: float
+    :param h_ellp: the observation site's height above mean sea level in metres.
+    :type h_ellp: float
 
-    φ_gd: latitude, with North being positive.
-    λ: longitude in degrees, with West being negative.
-    h_ellp: height above mean sea level in metres.
+    :return: a list with floats for the spacecraft's range, azimuth and elevation, and the rate of each of these, as seen from the observation site.
+    :rtype: list[float]
 
-    Outputs: 
-    ρ, β, el, ρ_dot, β_dot, el_dot
+    Current values for ``ΔAT``, ``ΔUT1``, ``x_p`` and ``y_p`` are published by the IERS in their `Bulletins A and C`_.
 
-    Based on Algorithm 27 on page 265 of Fundamentals of Astrodynamics and Applications (4th ed.) by David A Vallado.
+    Outputs: ρ, β, el, ρ_dot, β_dot, el_dot
+
+    Based on Algorithm 27 on page 265 of *Fundamentals of Astrodynamics and Applications* (4th ed.) by David A Vallado.
+
+
+    .. _Bulletins A and C: https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html
     """
 
     r_ecef: np.ndarray
