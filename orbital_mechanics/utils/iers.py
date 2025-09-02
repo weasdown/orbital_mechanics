@@ -60,11 +60,30 @@ class IERS:
         ymd = date.strftime('%y %m %d')
         return ymd.replace(' 0', '  ')  # remove zero padding
 
-    def x_p(self):
-        """Gets the latest x_p value from the latest Bulletin A."""
-        pass
+    def poles(self) -> list[float]:
+        """Gets the latest (predicted) x_p and y_p value from the latest Bulletin A."""
+        bulletin_a: str = self.bulletin_a()
+        bulletin_lines: list[str] = bulletin_a.split('\n')
 
-    @staticmethod
-    def y_p():
-        """Gets the latest y_p value from the latest Bulletin A."""
-        pass
+        # FIXME: build URL for JSON from Vol. and No. in latest Bulletin A.
+        example_json_url: str = 'https://datacenter.iers.org/data/json/bulletina-xxxviii-035.json'
+
+        a_json: dict = r.get(example_json_url).json()
+        time_series: list[dict] = a_json['EOP']['data']['timeSeries']
+
+        # Find today's entry in the time series.
+        def time_match(entry: dict) -> bool:
+            today: datetime = datetime.today()
+            today_year = today.strftime('%Y')
+            today_month = today.strftime('%m')
+            today_day = today.strftime('%d')
+
+            time: dict = entry['time']
+
+            return True if (time['dateYear'] == today_year) and (time['dateMonth'] == today_month) and (
+                        time['dateDay'] == today_day) else False
+
+        today_entry: dict = [entry for entry in time_series if time_match(entry)][0]
+        pole_data: dict = today_entry['dataEOP']['pole']
+
+        return [float(pole_data['X']), float(pole_data['Y'])]

@@ -6,4 +6,6 @@ iers = om.IERS()
 # print(f'Bulletin D:\n{iers.bulletin_d()}\n\n')
 #
 # print(f'ΔUT1 from IERS: {iers.d_ut1()}')
-print(f'ΔAT from IERS: {iers.d_at()}')
+# print(f'ΔAT from IERS: {iers.d_at()}')
+
+print(f'poles from IERS: {iers.poles()}')
