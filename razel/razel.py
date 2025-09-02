@@ -21,10 +21,10 @@ def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: floa
     Systems Service (IERS)](https://www.iers.org/IERS/EN/Home/home_node.html), which is the authority on this.
     Their [Bulletin C of July 7th, 2025](https://datacenter.iers.org/data/latestVersion/bulletinC.txt), also confirms
     that no leap second will be added at the end of December 2025, so ΔAT will remain at 37 seconds until further notice.
-    x_p (x pole): value that, together with `y_p`, defines the Earth's orientation. Published by the [IERS](https://www.iers.org/IERS/EN/Home/home_node.html)
-     as [Bulletins A](https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html).
-    y_p (y pole): value that, together with `x_p`, defines the Earth's orientation. Published by the [IERS](https://www.iers.org/IERS/EN/Home/home_node.html)
-     as [Bulletins A](https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html).
+    x_p (x pole): value in arcseconds that, together with `y_p`, defines the Earth's orientation. Published in milliarcseconds
+    by the [IERS](https://www.iers.org/IERS/EN/Home/home_node.html) as [Bulletins A](https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html).
+    y_p (y pole): value in arcseconds that, together with `x_p`, defines the Earth's orientation. Published in milliarcseconds
+    by the [IERS](https://www.iers.org/IERS/EN/Home/home_node.html) as [Bulletins A](https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html).
 
     φ_gd: latitude, with North being positive.
     λ: longitude in degrees, with West being negative.
@@ -109,10 +109,10 @@ def fk5(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: float,
     Systems Service (IERS)](https://www.iers.org/IERS/EN/Home/home_node.html), which is the authority on this.
     Their [Bulletin C of July 7th, 2025](https://datacenter.iers.org/data/latestVersion/bulletinC.txt), also confirms
     that no leap second will be added at the end of December 2025, so ΔAT will remain at 37 seconds until further notice.
-    x_p (x pole): value that, together with `y_p`, defines the Earth's orientation. Published by the [IERS](https://www.iers.org/IERS/EN/Home/home_node.html)
-     as [Bulletins A](https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html).
-    y_p (y pole): value that, together with `x_p`, defines the Earth's orientation. Published by the [IERS](https://www.iers.org/IERS/EN/Home/home_node.html)
-     as [Bulletins A](https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html).
+    x_p (x pole): value in arcseconds that, together with `y_p`, defines the Earth's orientation. Published in milliarcseconds
+    by the [IERS](https://www.iers.org/IERS/EN/Home/home_node.html) as [Bulletins A](https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html).
+    y_p (y pole): value in arcseconds that, together with `x_p`, defines the Earth's orientation. Published in milliarcseconds
+    by the [IERS](https://www.iers.org/IERS/EN/Home/home_node.html) as [Bulletins A](https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html).
     """
     raise NotImplementedError
 
