@@ -4,6 +4,13 @@ class IERS:
     """Class for getting time correction values and Earth rotation poles from IERS."""
 
     @staticmethod
+    def bulletin_a() -> str:
+        """Gets the latest Bulletin A."""
+        url: str = 'https://datacenter.iers.org/data/latestVersion/bulletinA.txt'
+        resp: r.Response = r.get(url)
+        return resp.text
+
+    @staticmethod
     def bulletin_c() -> str:
         """Gets the latest Bulletin C."""
         url: str = 'https://datacenter.iers.org/data/latestVersion/bulletinC.txt'
