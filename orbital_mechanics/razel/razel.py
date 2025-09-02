@@ -4,7 +4,7 @@
 from datetime import datetime
 import numpy as np
 from numpy import sin, cos, asin, deg2rad, sqrt, dot
-from utils.rotations import rot2, rot3
+from orbital_mechanics.utils.rotations import rot2, rot3
 
 
 # TODO add missing argument type hints once types known.
@@ -112,16 +112,24 @@ def fk5(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: float,
     """
     Converts position and velocity vectors in the ECI frame to the ECEF frame.
 
-    d_ut1 (ΔUT1): an observed time correction value to align UT1 with UTC. This should be less than 0.9 seconds, e.g. 0.463326 seconds.
-    d_at (ΔAT): an atomic time correction value obtained from the [Astronomical Almanac](https://aa.usno.navy.mil/publications/asa), e.g. 32 seconds.
-    As of September 2nd, 2025, this stands at 37 seconds, according to the [International Earth Rotation and Reference
-    Systems Service (IERS)](https://www.iers.org/IERS/EN/Home/home_node.html), which is the authority on this.
-    Their [Bulletin C of July 7th, 2025](https://datacenter.iers.org/data/latestVersion/bulletinC.txt), also confirms
-    that no leap second will be added at the end of December 2025, so ΔAT will remain at 37 seconds until further notice.
-    x_p (x pole): value in arcseconds that, together with `y_p`, defines the Earth's orientation. Published in milliarcseconds
-    by the [IERS](https://www.iers.org/IERS/EN/Home/home_node.html) as [Bulletins A](https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html).
-    y_p (y pole): value in arcseconds that, together with `x_p`, defines the Earth's orientation. Published in milliarcseconds
-    by the [IERS](https://www.iers.org/IERS/EN/Home/home_node.html) as [Bulletins A](https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html).
+    :param r_eci: spacecraft position vector in the Earth-centred inertial (ECI) reference frame.
+    :type r_eci: np.ndarray
+    :param v_eci: spacecraft velocity vector in the Earth-centred inertial (ECI) reference frame.
+    :type v_eci: np.ndarray
+    :param date_time: the current UTC date and time.
+    :type date_time: datetime.datetime
+    :param d_ut1: ΔUT1, an observed time correction value to align UT1 with UTC. This should be less than 0.9 seconds, e.g. 0.463326 seconds.
+    :type d_ut1: float
+    :param d_at: (ΔAT) an atomic time correction value obtained from the `Astronomical Almanac <https://aa.usno.navy.mil/publications/asa>`__, e.g. 32 seconds. As of September 2nd, 2025, this stands at 37 seconds, according to the `International Earth Rotation and Reference Systems Service, IERS <https://www.iers.org/IERS/EN/Home/home_node.html>`__, which is the authority on this. Their `Bulletin C of July 7th, 2025 <https://datacenter.iers.org/data/latestVersion/bulletinC.txt>`__, also confirms that no leap second will be added at the end of December 2025, so ΔAT will remain at 37 seconds until further notice.
+    :type d_at: int
+    :param x_p: (x pole) value in arcseconds that, together with ``y_p``, defines the Earth's orientation. Published in milliarcseconds by the `IERS <https://www.iers.org/IERS/EN/Home/home_node.html>`__ as `Bulletins A <https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html>`__.
+    :type x_p: float
+    :param y_p: (y pole) value in arcseconds that, together with ``x_p``, defines the Earth's orientation. Published in milliarcseconds by the `IERS <https://www.iers.org/IERS/EN/Home/home_node.html>`__ as `Bulletins A <https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html>`__.
+    :type y_p: float
+
+    :return: a list with ``np.ndarray``\s for the spacecraft's position and velocity vectors in the ECEF frame.
+    :rtype: list[np.ndarray]
+
     """
     raise NotImplementedError
 
