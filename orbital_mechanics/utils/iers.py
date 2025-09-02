@@ -2,17 +2,17 @@ class IERS:
     """Class for getting time correction values and Earth rotation poles from IERS."""
 
     @staticmethod
-    def d_at(self):
+    def d_at():
         pass
 
     @staticmethod
-    def d_ut1(self):
+    def d_ut1():
         pass
 
     @staticmethod
-    def x_p(self):
+    def x_p():
         pass
 
     @staticmethod
-    def y_p(self):
+    def y_p():
         pass
