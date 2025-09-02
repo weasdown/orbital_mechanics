@@ -1,5 +1,5 @@
-Modules
-=======
+orbital\_mechanics package
+==========================
 
 Subpackages
 -----------
