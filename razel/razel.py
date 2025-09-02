@@ -17,6 +17,10 @@ def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: floa
 
     d_ut1 (ΔUT1): an observed time correction value to align UT1 with UTC. This should be less than 0.9 seconds, e.g. 0.463326 seconds.
     d_at (ΔAT): an atomic time correction value obtained from the [Astronomical Almanac](https://aa.usno.navy.mil/publications/asa), e.g. 32 seconds.
+    As of September 2nd, 2025, this stands at 37 seconds, according to the [International Earth Rotation and Reference
+    Systems Service (IERS)](https://www.iers.org/IERS/EN/Home/home_node.html), which is the authority on this.
+    Their [Bulletin C of July 7th, 2025](https://datacenter.iers.org/data/latestVersion/bulletinC.txt), also confirms
+    that no leap second will be added at the end of December 2025, so ΔAT will remain at 37 seconds until further notice.
 
     φ_gd: latitude, with North being positive.
     λ: longitude in degrees, with West being negative.
