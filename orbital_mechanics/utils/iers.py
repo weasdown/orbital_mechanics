@@ -1,4 +1,7 @@
+from datetime import datetime
+
 import requests as r
+
 
 class IERS:
     """Class for getting time correction values and Earth rotation poles from IERS."""
@@ -52,7 +55,12 @@ class IERS:
         return value
 
     @staticmethod
-    def x_p():
+    def _rapid_service_date(date: datetime):
+        """Returns a date in the format supplied in a Bulletin A IERS Rapid Service table."""
+        ymd = date.strftime('%y %m %d')
+        return ymd.replace(' 0', '  ')  # remove zero padding
+
+    def x_p(self):
         """Gets the latest x_p value from the latest Bulletin A."""
         pass
 
