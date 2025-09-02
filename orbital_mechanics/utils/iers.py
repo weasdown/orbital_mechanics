@@ -46,8 +46,10 @@ class IERS:
 
     @staticmethod
     def x_p():
+        """Gets the latest x_p value from the latest Bulletin A."""
         pass
 
     @staticmethod
     def y_p():
+        """Gets the latest y_p value from the latest Bulletin A."""
         pass
