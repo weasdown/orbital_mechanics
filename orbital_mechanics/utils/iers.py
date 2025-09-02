@@ -3,6 +3,20 @@ import requests as r
 class IERS:
     """Class for getting time correction values and Earth rotation poles from IERS."""
 
+    @staticmethod
+    def bulletin_c() -> str:
+        """Gets the latest Bulletin C."""
+        url: str = 'https://datacenter.iers.org/data/latestVersion/bulletinC.txt'
+        resp: r.Response = r.get(url)
+        return resp.text
+
+    @staticmethod
+    def bulletin_d():
+        """Gets the latest Bulletin D."""
+        url: str = 'https://datacenter.iers.org/data/latestVersion/bulletinD.txt'
+        resp: r.Response = r.get(url)
+        return resp.text
+
     def d_at(self):
         """Gets the latest ΔAT value from the latest Bulletin C."""
         bulletin_c: str = self.bulletin_c()
@@ -37,17 +51,3 @@ class IERS:
     @staticmethod
     def y_p():
         pass
-
-    @staticmethod
-    def bulletin_c() -> str:
-        """Gets the latest Bulletin C."""
-        url: str = 'https://datacenter.iers.org/data/latestVersion/bulletinC.txt'
-        resp: r.Response = r.get(url)
-        return resp.text
-
-    @staticmethod
-    def bulletin_d():
-        """Gets the latest Bulletin D."""
-        url: str = 'https://datacenter.iers.org/data/latestVersion/bulletinD.txt'
-        resp: r.Response = r.get(url)
-        return resp.text
