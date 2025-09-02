@@ -7,9 +7,16 @@ class IERS:
     def d_at():
         pass
 
-    @staticmethod
-    def d_ut1():
-        pass
+    def d_ut1(self) -> float:
+        """Gets the latest ΔUT1 value from the latest Bulletin D."""
+        bulletin_d: str = self.bulletin_d()
+
+        bulletin_lines: list[str] = bulletin_d.split('\n')
+        value_lead: str = 'DUT1 = '
+        value_line: str = [line.lstrip() for line in bulletin_lines if line.lstrip().startswith(value_lead)][0]
+
+        value: float = float(value_line.replace(value_lead, '').replace(' s', ''))
+        return value
 
     @staticmethod
     def x_p():
