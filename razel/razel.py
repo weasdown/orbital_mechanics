@@ -8,7 +8,7 @@ from utils.rotations import rot2, rot3
 
 
 # TODO add missing argument type hints once types known.
-def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: float, d_at: float, x_p, y_p, phi_gd: float, lda: float, h_ellp: float) -> list[float]:
+def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: float, d_at: float, x_p: float, y_p: float, phi_gd: float, lda: float, h_ellp: float) -> list[float]:
     """
     Calculates a spacecraft's range, azimuth, elevation, and the rates of these, from a point on the ground.
     
@@ -21,6 +21,10 @@ def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: floa
     Systems Service (IERS)](https://www.iers.org/IERS/EN/Home/home_node.html), which is the authority on this.
     Their [Bulletin C of July 7th, 2025](https://datacenter.iers.org/data/latestVersion/bulletinC.txt), also confirms
     that no leap second will be added at the end of December 2025, so ΔAT will remain at 37 seconds until further notice.
+    x_p (x pole): value that, together with `y_p`, defines the Earth's orientation. Published by the [IERS](https://www.iers.org/IERS/EN/Home/home_node.html)
+     as [Bulletins A](https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html).
+    y_p (y pole): value that, together with `x_p`, defines the Earth's orientation. Published by the [IERS](https://www.iers.org/IERS/EN/Home/home_node.html)
+     as [Bulletins A](https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html).
 
     φ_gd: latitude, with North being positive.
     λ: longitude in degrees, with West being negative.
@@ -95,12 +99,20 @@ def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: floa
 
 
 # TODO add missing argument type hints once types known.
-def fk5(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: float, d_at: float, x_p, y_p) -> list[np.ndarray]:
+def fk5(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: float, d_at: float, x_p: float, y_p: float) -> list[np.ndarray]:
     """
     Converts position and velocity vectors in the ECI frame to the ECEF frame.
 
     d_ut1 (ΔUT1): an observed time correction value to align UT1 with UTC. This should be less than 0.9 seconds, e.g. 0.463326 seconds.
     d_at (ΔAT): an atomic time correction value obtained from the [Astronomical Almanac](https://aa.usno.navy.mil/publications/asa), e.g. 32 seconds.
+    As of September 2nd, 2025, this stands at 37 seconds, according to the [International Earth Rotation and Reference
+    Systems Service (IERS)](https://www.iers.org/IERS/EN/Home/home_node.html), which is the authority on this.
+    Their [Bulletin C of July 7th, 2025](https://datacenter.iers.org/data/latestVersion/bulletinC.txt), also confirms
+    that no leap second will be added at the end of December 2025, so ΔAT will remain at 37 seconds until further notice.
+    x_p (x pole): value that, together with `y_p`, defines the Earth's orientation. Published by the [IERS](https://www.iers.org/IERS/EN/Home/home_node.html)
+     as [Bulletins A](https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html).
+    y_p (y pole): value that, together with `x_p`, defines the Earth's orientation. Published by the [IERS](https://www.iers.org/IERS/EN/Home/home_node.html)
+     as [Bulletins A](https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html).
     """
     raise NotImplementedError
 
