@@ -2,7 +2,7 @@ from datetime import datetime
 
 import numpy as np
 
-from orbital_mechanics import IERS
+from orbital_mechanics.utils import IERS
 from orbital_mechanics.razel.razel import razel
 
 
