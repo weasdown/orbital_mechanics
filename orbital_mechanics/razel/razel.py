@@ -7,7 +7,6 @@ from numpy import sin, cos, asin, deg2rad, sqrt, dot
 from orbital_mechanics.utils.rotations import rot2, rot3
 
 
-# TODO add missing argument type hints once types known.
 def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: float, d_at: int, x_p: float, y_p: float, phi_gd: float, lda: float, h_ellp: float) -> list[float]:
     """Calculates a spacecraft's range, azimuth, elevation, and the rates of these, from an observation site on the ground.
 
@@ -107,7 +106,6 @@ def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: floa
     return [rho, beta, el, rho_dot, beta_dot, el_dot]
 
 
-# TODO add missing argument type hints once types known.
 def fk5(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: float, d_at: int, x_p: float, y_p: float) -> list[np.ndarray]:
     """
     Converts position and velocity vectors in the ECI frame to the ECEF frame.
@@ -140,7 +138,6 @@ def fk5(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: float,
     # return [r_ecef, v_ecef]
 
 
-# TODO add missing argument type hints once types known.
 def site(phi_gd: float, lda: float, h_ellp: float) -> np.ndarray:
     """
     Calculates the ECEF position vector for a site on the Earth's surface.
