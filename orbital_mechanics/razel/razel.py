@@ -25,11 +25,11 @@ def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: floa
     :type x_p: float
     :param y_p: (y pole) value in arcseconds that, together with ``x_p``, defines the Earth's orientation. Published in milliarcseconds by the `IERS <https://www.iers.org/IERS/EN/Home/home_node.html>`__ as `Bulletins A <https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html>`__.
     :type y_p: float
-    :param phi_gd: the observation site's latitude in degrees, with North being positive.
+    :param phi_gd: the observation site's geodetic latitude in degrees, with North being positive.
     :type phi_gd: float
     :param lda: (λ) the observation site's longitude in degrees, with West being negative.
     :type lda: float
-    :param h_ellp: the observation site's height above mean sea level in metres.
+    :param h_ellp: the observation site's height above mean sea level in metres. # FIXME: believe this is actually satellite height above the ground (see diagram pg 171/PDF pg 198).
     :type h_ellp: float
 
     :return: a list with floats for the spacecraft's range, azimuth and elevation, and the rate of each of these, as seen from the observation site.
@@ -145,9 +145,14 @@ def site(phi_gd: float, lda: float, h_ellp: float) -> np.ndarray:
     """
     Calculates the ECEF position vector for a site on the Earth's surface.
 
-    phi_gd: latitude, with North being positive.
-    lda (λ): longitude in degrees, with West being negative.
-    h_ellp: height above mean sea level in metres.
+    Based on part of SITE-TRACK algorithm on page 420 (PDF page 457) of *Fundamentals of Astrodynamics and Applications* (4th ed.) by David A Vallado.
+
+    :param phi_gd: the observation site's geodetic latitude in degrees, with North being positive.
+    :type phi_gd: float
+    :param lda: (λ) the observation site's longitude in degrees, with West being negative.
+    :type lda: float
+    :param h_ellp: the observation site's height above mean sea level in metres. # FIXME: believe this is actually satellite height above the ground (see diagram pg 171/PDF pg 198).
+    :type h_ellp: float
     """
     
     raise NotImplementedError
