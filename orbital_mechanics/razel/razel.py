@@ -2,8 +2,11 @@
 # For full details, see Algorithm 27 (RAZEL) on page 265 of Fundamentals of Astrodynamics and Applications (4th ed.) by David A Vallado.
 
 from datetime import datetime
+
 import numpy as np
 from numpy import sin, cos, asin, deg2rad, sqrt, dot
+
+from orbital_mechanics import constants
 from orbital_mechanics.utils.rotations import rot2, rot3
 
 
@@ -125,7 +128,7 @@ def fk5(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: float,
     :param y_p: (y pole) value in arcseconds that, together with ``x_p``, defines the Earth's orientation. Published in milliarcseconds by the `IERS <https://www.iers.org/IERS/EN/Home/home_node.html>`__ as `Bulletins A <https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html>`__.
     :type y_p: float
 
-    :return: a list with ``np.ndarray``\s for the spacecraft's position and velocity vectors in the ECEF frame.
+    :return: a ``list[np.ndarray]`` for the spacecraft's position and velocity vectors in the ECEF frame.
     :rtype: list[np.ndarray]
 
     """
@@ -151,11 +154,31 @@ def site(phi_gd: float, lda: float, h_ellp: float) -> np.ndarray:
     :param h_ellp: the observation site's height above mean sea level in metres. # FIXME: believe this is actually satellite height above the ground (see diagram pg 171/PDF pg 198).
     :type h_ellp: float
     """
-    
-    raise NotImplementedError
 
-    # # FIXME fix placeholder value for output.
-    # r_site_ecef: np.ndarray = np.ndarray([])
+    print(f'Running site() for φ_gd = {phi_gd}, λ = {lda}, h_ellp = {h_ellp}...\n')
+
+    # Convert degrees to radians.
+    phi_gd: float = deg2rad(phi_gd)
+    lda: float = deg2rad(lda)
+
+    r_earth: float = constants.earth.radius_equatorial
+    e_earth: float = constants.earth.eccentricity
+    print(f'{r_earth = }')
+    print(f'{e_earth = }\n')
+
+    c_earth: float = r_earth / sqrt(1 - e_earth ** 2 * sin(phi_gd)**2)
+    s_earth: float = c_earth * (1 - e_earth ** 2)
+
+    print(f'{c_earth = }')
+    print(f'{s_earth = }')
+
+    r_delta: float = (c_earth + h_ellp) * cos(phi_gd)
+    print(f'{r_delta = }')
+    # r_k: float = ...
+    #
+    #
+    # # # FIXME fix placeholder value for output.
+    # r_site_ecef: np.ndarray = np.ndarray([r_delta * cos(lda), r_delta * sin(lda), r_k])
     # return r_site_ecef
 
 
