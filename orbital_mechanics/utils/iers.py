@@ -144,3 +144,13 @@ class IERS:
         pole_data: dict = today_entry['dataEOP']['pole']
 
         return [float(pole_data['X']), float(pole_data['Y'])]
+
+    @property
+    def x_p(self) -> float:
+        """Latest (predicted) x_p value from the latest Bulletin A."""
+        return self.poles[0]
+
+    @property
+    def y_p(self) -> float:
+        """Latest (predicted) y_p value from the latest Bulletin A."""
+        return self.poles[0]
