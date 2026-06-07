@@ -80,7 +80,8 @@ class LatestBulletinD(LatestBulletin):
 
     @property
     def json(self) -> dict:
-        return r.get(self.json_url).json()
+        """Bulletin Ds are not available in JSON form."""
+        raise TypeError('LatestBulletinD does not support the json property.')
 
     @property
     def json_url(self):
