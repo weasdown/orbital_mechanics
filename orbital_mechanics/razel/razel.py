@@ -15,6 +15,12 @@ def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, phi_gd: flo
           h_ellp: float) -> list[float]:
     """Calculates a spacecraft's range, azimuth, elevation, and the rates of these, from an observation site on the ground.
 
+    Current values for ``ΔAT``, ``ΔUT1``, ``x_p`` and ``y_p`` are published by the IERS in their `Bulletins A and C`_.
+
+    Outputs: ρ, β, el, ρ_dot, β_dot, el_dot
+
+    Based on Algorithm 27 on page 265 of *Fundamentals of Astrodynamics and Applications* (4th ed.) by David A Vallado.
+
     :param r_eci: spacecraft position vector in the Earth-centred inertial (ECI) reference frame.
     :type r_eci: np.ndarray
     :param v_eci: spacecraft velocity vector in the Earth-centred inertial (ECI) reference frame.
@@ -30,13 +36,6 @@ def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, phi_gd: flo
 
     :return: a list with floats for the spacecraft's range, azimuth and elevation, and the rate of each of these, as seen from the observation site.
     :rtype: list[float]
-
-    Current values for ``ΔAT``, ``ΔUT1``, ``x_p`` and ``y_p`` are published by the IERS in their `Bulletins A and C`_.
-
-    Outputs: ρ, β, el, ρ_dot, β_dot, el_dot
-
-    Based on Algorithm 27 on page 265 of *Fundamentals of Astrodynamics and Applications* (4th ed.) by David A Vallado.
-
 
     .. _Bulletins A and C: https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html
     """
