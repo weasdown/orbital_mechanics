@@ -12,7 +12,7 @@ def conv_time(date_time: datetime, d_ut1: float, d_at: int) -> list:
     :type d_ut1: float
     :param d_at: the value of ΔAT provided by `IERS`_ for the given date.
     :type d_at: int
-    :return: list containing the following: ``[UT1, TAI, TT, TDB, T<sub>UTI</sub>, T<sub>TT</sub>, T<sub>TDB</sub>]``.
+    :return: list containing the following: ``[UT1, TAI, TT, TDB, T<sub>UT1</sub>, T<sub>TT</sub>, T<sub>TDB</sub>]``.
     :rtype: list
 
     .. _IERS: https://www.iers.org/IERS/EN/Home
