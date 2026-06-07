@@ -3,6 +3,48 @@ from datetime import datetime
 import requests as r
 
 
+class LatestBulletin:
+    def __init__(self, letter: str):
+        self._letter: str = letter
+        self.date_retrieved = datetime.today().date()
+
+    @property
+    def json_url(self):
+        return f'https://datacenter.iers.org/data/json/bulletin{self._letter.lower()}-{self.vol.lower()}-{self.num}.json'
+
+    @property
+    def json(self) -> str:
+        raise NotImplementedError('Bulletin.json property is not yet implemented.')
+
+    @property
+    def num(self) -> str:
+        vol_num_split = self.vol_num_line.split(' ')
+        num = vol_num_split[3]
+        return num
+
+    @property
+    def text(self) -> str:
+        resp: r.Response = r.get(self.url)
+        return resp.text
+
+    @property
+    def url(self) -> str:
+        return IERS.latest_bulletin_url(self._letter)
+
+    @property
+    def vol_num_line(self) -> str:
+        text_lines: list[str] = self.text.split('\n')
+        vol_num_line: str = text_lines[7].rstrip()  # Get the line that includes the bulletin's "Vol." and "No.".
+        vol_num_line = vol_num_line[vol_num_line.index('V'):]
+        return vol_num_line
+
+    @property
+    def vol(self) -> str:
+        vol_num_split = self.vol_num_line.split(' ')
+        vol = vol_num_split[1]
+        return vol
+
+
 class IERS:
     """Class for getting time correction values and Earth rotation poles from IERS."""
 
