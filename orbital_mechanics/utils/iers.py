@@ -85,7 +85,7 @@ class IERS:
             time: dict = entry['time']
 
             return True if (time['dateYear'] == today_year) and (time['dateMonth'] == today_month) and (
-                        time['dateDay'] == today_day) else False
+                    time['dateDay'] == today_day) else False
 
         today_entry: dict = [entry for entry in time_series if time_match(entry)][0]
         pole_data: dict = today_entry['dataEOP']['pole']
