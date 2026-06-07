@@ -122,8 +122,8 @@ class IERS:
         ymd = date.strftime('%y %m %d')
         return ymd.replace(' 0', '  ')  # remove zero padding
 
-    @staticmethod
-    def poles() -> list[float]:
+    @property
+    def poles(self) -> list[float]:
         """Gets the latest (predicted) x_p and y_p value from the latest Bulletin A."""
         bulletin_a: LatestBulletinA = LatestBulletinA()
         time_series: list[dict] = bulletin_a.json['EOP']['data']['timeSeries']
