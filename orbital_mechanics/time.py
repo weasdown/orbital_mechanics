@@ -6,7 +6,7 @@ def conv_time(date_time: datetime, d_ut1: float, d_at: int) -> list:
     """
     Based on Algorithm 16 on page 195 of *Fundamentals of Astrodynamics and Applications* (4th ed.) by David A Vallado.
 
-    :param date_time: the date and time of interest.
+    :param date_time: the date and time of interest, in UTC.
     :type date_time: datetime
     :param d_ut1: the value of ΔUT1 provided by `IERS`_ for the given date.
     :type d_ut1: float
