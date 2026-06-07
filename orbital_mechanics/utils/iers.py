@@ -91,8 +91,8 @@ class LatestBulletinD(LatestBulletin):
 class IERS:
     """Class for getting time correction values and Earth rotation poles from IERS."""
 
-    @staticmethod
-    def d_at():
+    @property
+    def d_at(self) -> int:
         """Gets the latest ΔAT value from the latest Bulletin C."""
         bulletin_c: str = LatestBulletinC().text
         bulletin_lines: list[str] = bulletin_c.split('\n')
@@ -104,8 +104,8 @@ class IERS:
         value: int = int(value_line[lead_index:-1].replace(value_lead, '').rstrip())
         return value
 
-    @staticmethod
-    def d_ut1() -> float:
+    @property
+    def d_ut1(self) -> float:
         """Gets the latest ΔUT1 value from the latest Bulletin D."""
         bulletin_d: str = LatestBulletinD().text
         bulletin_lines: list[str] = bulletin_d.split('\n')
