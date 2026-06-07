@@ -6,8 +6,8 @@ from datetime import datetime
 import numpy as np
 from numpy import sin, cos, asin, deg2rad, sqrt, dot
 
-from orbital_mechanics.utils import IERS
-from orbital_mechanics.utils.rotations import rot2, rot3
+from orbital_mechanics.time import conv_time
+from orbital_mechanics.utils import IERS, rot2, rot3
 
 
 # TODO add missing argument type hints once types known.
@@ -129,13 +129,14 @@ def fk5(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: float,
     :return: a list with ``np.ndarray``\\s for the spacecraft's position and velocity vectors in the ECEF frame.
     :rtype: list[np.ndarray]
     """
-    raise NotImplementedError
+    ut1, tai, tt, _, t_uti, t_tt, _ = conv_time(date_time, d_ut1, d_at)
 
     # # FIXME fix placeholder values for outputs.
     # r_ecef: np.ndarray = np.ndarray([])
     # v_ecef: np.ndarray = np.ndarray([])
 
     # return [r_ecef, v_ecef]
+    raise NotImplementedError('FK5 function is not yet implemented.')
 
 
 # TODO add missing argument type hints once types known.
