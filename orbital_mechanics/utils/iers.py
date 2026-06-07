@@ -39,6 +39,25 @@ class LatestBulletin(ABC):
         vol_num_line = vol_num_line[vol_num_line.index('V'):]
         return vol_num_line
 
+
+class LatestBulletinA(LatestBulletin):
+    def __init__(self):
+        super().__init__('A')
+
+    @property
+    def json(self) -> dict:
+        return r.get(self.json_url).json()
+
+    @property
+    def json_url(self):
+        return f'https://datacenter.iers.org/data/json/bulletin{self._letter.lower()}-{self.vol.lower()}-{self.num}.json'
+
+    @property
+    def num(self) -> str:
+        vol_num_split = self.vol_num_line.split(' ')
+        num = vol_num_split[3]
+        return num
+
     @property
     def vol(self) -> str:
         vol_num_split = self.vol_num_line.split(' ')
