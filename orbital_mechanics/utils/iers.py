@@ -99,7 +99,6 @@ class IERS:
 
         value_lead: str = 'UTC-TAI = '
         value_line: str = [line for line in bulletin_lines if value_lead in line.lstrip()][0]
-        print(f'{value_line = }')
 
         lead_index: int = value_line.find(value_lead)
         value: int = int(value_line[lead_index:-1].replace(value_lead, '').rstrip())
