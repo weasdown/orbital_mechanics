@@ -120,9 +120,10 @@ class IERS:
         # value: float = float(value_line.replace(value_lead, '').replace(' s', ''))
         # return value
 
-    def d_ut1(self) -> float:
+    @staticmethod
+    def d_ut1() -> float:
         """Gets the latest ΔUT1 value from the latest Bulletin D."""
-        bulletin_d: str = self.bulletin_d()
+        bulletin_d: str = LatestBulletinD().text
         bulletin_lines: list[str] = bulletin_d.split('\n')
 
         value_lead: str = 'DUT1 = '
