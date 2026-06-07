@@ -13,21 +13,21 @@ class IERS:
     @staticmethod
     def bulletin_a() -> str:
         """Gets the latest Bulletin A."""
-        url: str = 'https://datacenter.iers.org/data/latestVersion/bulletinA.txt'
+        url: str = IERS._latest_bulletin_url('A')
         resp: r.Response = r.get(url)
         return resp.text
 
     @staticmethod
     def bulletin_c() -> str:
         """Gets the latest Bulletin C."""
-        url: str = 'https://datacenter.iers.org/data/latestVersion/bulletinC.txt'
+        url: str = IERS._latest_bulletin_url('C')
         resp: r.Response = r.get(url)
         return resp.text
 
     @staticmethod
     def bulletin_d():
         """Gets the latest Bulletin D."""
-        url: str = 'https://datacenter.iers.org/data/latestVersion/bulletinD.txt'
+        url: str = IERS._latest_bulletin_url('D')
         resp: r.Response = r.get(url)
         return resp.text
 
