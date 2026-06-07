@@ -97,9 +97,10 @@ class IERS:
         resp: r.Response = r.get(url)
         return resp.text
 
-    def d_at(self):
+    @staticmethod
+    def d_at():
         """Gets the latest ΔAT value from the latest Bulletin C."""
-        bulletin_c: str = self.bulletin_c()
+        bulletin_c: str = LatestBulletinC().text
         bulletin_lines: list[str] = bulletin_c.split('\n')
 
         value_lead: str = 'UTC-TAI = '
