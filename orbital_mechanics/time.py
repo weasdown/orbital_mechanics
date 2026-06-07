@@ -3,6 +3,9 @@ from datetime import datetime
 def julian_date(date_time: datetime) -> float:
     """Calculate the Julian Date for a given calendar date.
 
+    :param date_time: The date and time to be converted.
+    :type date_time: datetime
+
     Based on Algorithm 14 on page 183 (PDF page 210) of **Fundamentals of Astrodynamics and Applications** (4th ed.) by David A. Vallado."""
     year: int = date_time.year
     month: int = date_time.month
