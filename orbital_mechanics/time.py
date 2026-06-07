@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from math import sin
 
 
-# TODO implement conv_time() function
+# FIXME fix slightly incorrect tdb, t_ut1, t_tt, t_tdb outputs
 def conv_time(date_time: datetime, d_ut1: float, d_at: int) -> list:
     """
     Based on Algorithm 16 on page 195 of *Fundamentals of Astrodynamics and Applications* (4th ed.) by David A Vallado.
