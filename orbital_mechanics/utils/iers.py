@@ -75,6 +75,19 @@ class LatestBulletinC(LatestBulletin):
         raise NotImplementedError('LatestBulletinC.json_url property is not yet implemented.')
 
 
+class LatestBulletinD(LatestBulletin):
+    def __init__(self):
+        super().__init__('D')
+
+    @property
+    def json(self) -> dict:
+        return r.get(self.json_url).json()
+
+    @property
+    def json_url(self):
+        raise NotImplementedError('LatestBulletinD.json_url property is not yet implemented.')
+
+
 class IERS:
     """Class for getting time correction values and Earth rotation poles from IERS."""
 
