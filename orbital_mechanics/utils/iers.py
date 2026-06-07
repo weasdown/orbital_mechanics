@@ -122,7 +122,8 @@ class IERS:
         ymd = date.strftime('%y %m %d')
         return ymd.replace(' 0', '  ')  # remove zero padding
 
-    def poles(self) -> list[float]:
+    @staticmethod
+    def poles() -> list[float]:
         """Gets the latest (predicted) x_p and y_p value from the latest Bulletin A."""
         bulletin_a: str = self.bulletin_a()
         bulletin_lines: list[str] = bulletin_a.split('\n')
