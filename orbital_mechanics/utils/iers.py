@@ -10,18 +10,14 @@ class LatestBulletin(ABC):
         self.date_retrieved = datetime.today().date()
 
     @property
-    def json_url(self):
-        return f'https://datacenter.iers.org/data/json/bulletin{self._letter.lower()}-{self.vol.lower()}-{self.num}.json'
-
-    @property
+    @abstractmethod
     def json(self) -> str:
-        raise NotImplementedError('Bulletin.json property is not yet implemented.')
+        pass
 
     @property
-    def num(self) -> str:
-        vol_num_split = self.vol_num_line.split(' ')
-        num = vol_num_split[3]
-        return num
+    @abstractmethod
+    def json_url(self):
+        pass
 
     @property
     def text(self) -> str:
