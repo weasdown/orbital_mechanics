@@ -1,9 +1,10 @@
 from datetime import datetime
 
 import requests as r
+from abc import ABC, abstractmethod
 
 
-class LatestBulletin:
+class LatestBulletin(ABC):
     def __init__(self, letter: str):
         self._letter: str = letter
         self.date_retrieved = datetime.today().date()
