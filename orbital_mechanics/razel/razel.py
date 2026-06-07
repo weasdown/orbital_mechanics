@@ -2,10 +2,8 @@
 # For full details, see Algorithm 27 (RAZEL) on page 265 of Fundamentals of Astrodynamics and Applications (4th ed.) by David A Vallado.
 
 from datetime import datetime
-
 import numpy as np
 from numpy import sin, cos, asin, deg2rad, sqrt, dot
-
 from orbital_mechanics.utils.rotations import rot2, rot3
 
 
@@ -130,7 +128,7 @@ def fk5(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: float,
     :param y_p: (y pole) value in arcseconds that, together with ``x_p``, defines the Earth's orientation. Published in milliarcseconds by the `IERS <https://www.iers.org/IERS/EN/Home/home_node.html>`__ as `Bulletins A <https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html>`__.
     :type y_p: float
 
-    :return: a list with ``np.ndarray``s for the spacecraft's position and velocity vectors in the ECEF frame.
+    :return: a list with ``np.ndarray``\\s for the spacecraft's position and velocity vectors in the ECEF frame.
     :rtype: list[np.ndarray]
 
     """
