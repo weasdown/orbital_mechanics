@@ -1,4 +1,32 @@
-from datetime import datetime
+from datetime import datetime, timedelta
+
+
+# TODO implement conv_time() function
+def conv_time(date_time: datetime, d_ut1: float, d_at: int) -> list:
+    """
+    Based on Algorithm 16 on page 195 of *Fundamentals of Astrodynamics and Applications* (4th ed.) by David A Vallado.
+
+    :param date_time: the date and time of interest.
+    :type date_time: datetime
+    :param d_ut1: the value of ΔUT1 provided by `IERS`_ for the given date.
+    :type d_ut1: float
+    :param d_at: the value of ΔAT provided by `IERS`_ for the given date.
+    :type d_at: int
+    :return: list containing the following: ``[UT1, TAI, TT, TDB, T<sub>UTI</sub>, T<sub>TT</sub>, T<sub>TDB</sub>]``.
+    :rtype: list
+
+    .. _IERS: https://www.iers.org/IERS/EN/Home
+    """
+    ut1 = date_time + timedelta(days=0, seconds=d_ut1)
+    tai = ...
+    tt = ...
+    tdb = ...
+    t_uti = ...
+    t_tt = ...
+    t_tdb = ...
+
+    raise NotImplementedError('conv_time() function is not yet implemented.')
+    # return [ut1, tai, tt, tdb, t_uti, t_tt, t_tdb]
 
 
 def julian_date(date_time: datetime) -> float:
