@@ -34,7 +34,3 @@ def julian_date(date_time: datetime) -> float:
 
 def modified_julian_date(date_time: datetime) -> float:
     return julian_date(date_time) - 2400000.5
-
-
-print(julian_date(datetime.now()))
-print(modified_julian_date(datetime.now()))
