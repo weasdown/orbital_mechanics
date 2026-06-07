@@ -2,14 +2,17 @@
 # For full details, see Algorithm 27 (RAZEL) on page 265 of Fundamentals of Astrodynamics and Applications (4th ed.) by David A Vallado.
 
 from datetime import datetime
+
 import numpy as np
 from numpy import sin, cos, asin, deg2rad, sqrt, dot
+
+from orbital_mechanics.utils import IERS
 from orbital_mechanics.utils.rotations import rot2, rot3
 
 
 # TODO add missing argument type hints once types known.
-def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: float, d_at: int, x_p: float, y_p: float,
-          phi_gd: float, lda: float, h_ellp: float) -> list[float]:
+def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, phi_gd: float, lda: float,
+          h_ellp: float) -> list[float]:
     """Calculates a spacecraft's range, azimuth, elevation, and the rates of these, from an observation site on the ground.
 
     :param r_eci: spacecraft position vector in the Earth-centred inertial (ECI) reference frame.
@@ -46,9 +49,11 @@ def razel(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: floa
     .. _Bulletins A and C: https://www.iers.org/IERS/EN/Publications/Bulletins/bulletins.html
     """
 
+    iers = IERS()
+
     r_ecef: np.ndarray
     v_ecef: np.ndarray
-    r_ecef, v_ecef = fk5(r_eci, v_eci, date_time, d_ut1, d_at, x_p, y_p)
+    r_ecef, v_ecef = fk5(r_eci, v_eci, date_time, iers.d_ut1, iers.d_at, iers.x_p, iers.y_p)
 
     r_site_ecef: np.ndarray = site(phi_gd, lda, h_ellp)
 
