@@ -1,7 +1,8 @@
+from abc import ABC, abstractmethod
 from datetime import datetime
+from warnings import deprecated
 
 import requests as r
-from abc import ABC, abstractmethod
 
 
 class LatestBulletin(ABC):
@@ -26,7 +27,7 @@ class LatestBulletin(ABC):
 
     @property
     def url(self) -> str:
-        return IERS.latest_bulletin_url(self._letter)
+        return f'https://datacenter.iers.org/data/latestVersion/bulletin{self._letter}.txt'
 
     @property
     def vol_num_line(self) -> str:
@@ -78,6 +79,7 @@ class IERS:
     """Class for getting time correction values and Earth rotation poles from IERS."""
 
     @staticmethod
+    @deprecated('Use LatestBulletinX.url instead')
     def latest_bulletin_url(bulletin_letter: str) -> str:
         return f'https://datacenter.iers.org/data/latestVersion/bulletin{bulletin_letter}.txt'
 
