@@ -125,14 +125,8 @@ class IERS:
     @staticmethod
     def poles() -> list[float]:
         """Gets the latest (predicted) x_p and y_p value from the latest Bulletin A."""
-        bulletin_a: str = self.bulletin_a()
-        bulletin_lines: list[str] = bulletin_a.split('\n')
-
-        # FIXME: build URL for JSON from Vol. and No. in latest Bulletin A.
-        example_json_url: str = 'https://datacenter.iers.org/data/json/bulletina-xxxviii-035.json'
-
-        a_json: dict = r.get(example_json_url).json()
-        time_series: list[dict] = a_json['EOP']['data']['timeSeries']
+        bulletin_a: LatestBulletinA = LatestBulletinA()
+        time_series: list[dict] = bulletin_a.json['EOP']['data']['timeSeries']
 
         # Find today's entry in the time series.
         def time_match(entry: dict) -> bool:
