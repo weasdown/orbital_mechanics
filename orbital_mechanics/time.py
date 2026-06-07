@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 def julian_date(date_time: datetime) -> float:
     """Calculate the Julian Date for a given calendar date.
 
