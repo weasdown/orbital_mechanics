@@ -8,12 +8,6 @@ Subpackages
    :maxdepth: 4
 
    orbital_mechanics.razel
+   orbital_mechanics.time
    orbital_mechanics.utils
 
-Module contents
----------------
-
-.. automodule:: orbital_mechanics
-   :members:
-   :show-inheritance:
-   :undoc-members:
