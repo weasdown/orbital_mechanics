@@ -109,6 +109,8 @@ def fk5(r_eci: np.ndarray, v_eci: np.ndarray, date_time: datetime, d_ut1: float,
     """
     Converts position and velocity vectors in the ECI frame to the ECEF frame.
 
+    Based on Algorithm 24 on page 228 of *Fundamentals of Astrodynamics and Applications* (4th ed.) by David A Vallado.
+
     :param r_eci: spacecraft position vector in the Earth-centred inertial (ECI) reference frame.
     :type r_eci: np.ndarray
     :param v_eci: spacecraft velocity vector in the Earth-centred inertial (ECI) reference frame.
