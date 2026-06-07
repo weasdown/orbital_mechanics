@@ -61,6 +61,19 @@ class LatestBulletinA(LatestBulletin):
         return vol
 
 
+class LatestBulletinC(LatestBulletin):
+    def __init__(self):
+        super().__init__('C')
+
+    @property
+    def json(self) -> dict:
+        return r.get(self.json_url).json()
+
+    @property
+    def json_url(self):
+        raise NotImplementedError('LatestBulletinC.json_url property is not yet implemented.')
+
+
 class IERS:
     """Class for getting time correction values and Earth rotation poles from IERS."""
 
