@@ -17,4 +17,5 @@ documentation for details.
 
    intro
    examples
-   orbital_mechanics
+   modules
+

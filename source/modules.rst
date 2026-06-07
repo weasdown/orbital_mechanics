@@ -1,5 +1,5 @@
-orbital_mechanics
-=================
+orbital\_mechanics package
+==========================
 
 .. toctree::
    :maxdepth: 4
