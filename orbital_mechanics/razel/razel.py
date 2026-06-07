@@ -2,8 +2,10 @@
 # For full details, see Algorithm 27 (RAZEL) on page 265 of Fundamentals of Astrodynamics and Applications (4th ed.) by David A Vallado.
 
 from datetime import datetime
+
 import numpy as np
 from numpy import sin, cos, asin, deg2rad, sqrt, dot
+
 from orbital_mechanics.utils.rotations import rot2, rot3
 
 
