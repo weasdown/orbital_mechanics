@@ -84,13 +84,6 @@ class IERS:
         return f'https://datacenter.iers.org/data/latestVersion/bulletin{bulletin_letter}.txt'
 
     @staticmethod
-    def bulletin_a() -> str:
-        """Gets the latest Bulletin A."""
-        url: str = IERS.latest_bulletin_url('A')
-        resp: r.Response = r.get(url)
-        return resp.text
-
-    @staticmethod
     def bulletin_c() -> str:
         """Gets the latest Bulletin C."""
         url: str = IERS.latest_bulletin_url('C')
