@@ -105,9 +105,6 @@ class IERS:
         value: int = int(value_line[lead_index:-1].replace(value_lead, '').rstrip())
         return value
 
-        # value: float = float(value_line.replace(value_lead, '').replace(' s', ''))
-        # return value
-
     @staticmethod
     def d_ut1() -> float:
         """Gets the latest ΔUT1 value from the latest Bulletin D."""
