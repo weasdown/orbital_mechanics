@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
+from pathlib import Path
 
 import requests as r
+
+mocks_path: Path = Path('orbital_mechanics/mocks')
 
 
 class LatestBulletin(ABC):
@@ -18,6 +21,11 @@ class LatestBulletin(ABC):
     @abstractmethod
     def json_url(self):
         pass
+
+    @property
+    def mock(self) -> Path:
+        ext: str = 'json' if isinstance(self, LatestBulletinA) else 'txt'
+        return Path(f'{mocks_path}/bulletin_{self._letter.lower()}.{ext}')
 
     @property
     def text(self) -> str:
