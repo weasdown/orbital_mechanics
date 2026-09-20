@@ -62,8 +62,8 @@ class LatestBulletin(ABC):
 
 
 class LatestBulletinA(LatestBulletin):
-    def __init__(self):
-        super().__init__('A')
+    def __init__(self, use_mocks: bool):
+        super().__init__('A', use_mocks)
 
     @property
     def json_url(self):
@@ -83,8 +83,8 @@ class LatestBulletinA(LatestBulletin):
 
 
 class LatestBulletinC(LatestBulletin):
-    def __init__(self):
-        super().__init__('C')
+    def __init__(self, use_mocks: bool):
+        super().__init__('C', use_mocks)
 
     @property
     def json_url(self):
@@ -92,8 +92,8 @@ class LatestBulletinC(LatestBulletin):
 
 
 class LatestBulletinD(LatestBulletin):
-    def __init__(self):
-        super().__init__('D')
+    def __init__(self, use_mocks: bool):
+        super().__init__('D', use_mocks)
 
     @property
     def json(self) -> dict:
@@ -114,7 +114,7 @@ class IERS:
     @property
     def d_at(self) -> int:
         """Gets the latest ΔAT value from the latest Bulletin C."""
-        bulletin_c: LatestBulletinC = LatestBulletinC()
+        bulletin_c: LatestBulletinC = LatestBulletinC(self._use_mocks)
         bulletin_lines: list[str] = bulletin_c.text.split('\n')
 
         value_lead: str = 'UTC-TAI = '
@@ -135,7 +135,7 @@ class IERS:
     @property
     def d_ut1(self) -> float:
         """Gets the latest ΔUT1 value from the latest Bulletin D."""
-        bulletin_d: LatestBulletinD = LatestBulletinD()
+        bulletin_d: LatestBulletinD = LatestBulletinD(self._use_mocks)
         bulletin_lines: list[str] = bulletin_d.text.split('\n')
 
         value_lead: str = 'DUT1 = '
@@ -161,7 +161,7 @@ class IERS:
     @property
     def poles(self) -> list[float]:
         """Gets the latest (predicted) x_p and y_p value from the latest Bulletin A."""
-        bulletin_a: LatestBulletinA = LatestBulletinA()
+        bulletin_a: LatestBulletinA = LatestBulletinA(self._use_mocks)
         time_series: list[dict] = bulletin_a.json['EOP']['data']['timeSeries']
 
         today: datetime = datetime.today()
