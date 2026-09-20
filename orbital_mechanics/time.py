@@ -19,10 +19,13 @@ def conv_time(date_time: datetime, d_ut1: float, d_at: int) -> list:
     .. _IERS: https://www.iers.org/IERS/EN/Home
     """
 
-    utc = date_time.time()
-    ut1: datetime = date_time + timedelta(days=0, seconds=d_ut1)
+    utc: datetime = date_time
+    ut1: datetime = utc + timedelta(days=0, seconds=d_ut1)
 
-    # TODO add check that utc and ut1 are within 0.9 seconds.
+    # Check that utc and ut1 are within 0.9 seconds (i.e. that d_ut1 - ΔUT1 - is less than 0.9 seconds),
+    # as recommended by Fundamentals pg 195 (PDF pg 222).
+    if d_ut1 > 0.9:
+        raise AttributeError(f'd_ut1 should be less than 0.9 seconds but was {d_ut1} seconds')
 
     tai: datetime = date_time + timedelta(days=0, seconds=d_at)
 
