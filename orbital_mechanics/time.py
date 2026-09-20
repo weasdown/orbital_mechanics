@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta
 from math import sin
 
+from utils.iers import IERS
+
 
 # FIXME fix slightly incorrect tdb, t_ut1, t_tt, t_tdb outputs
 def conv_time(date_time: datetime, d_ut1: float, d_at: int) -> list:
@@ -29,7 +31,8 @@ def conv_time(date_time: datetime, d_ut1: float, d_at: int) -> list:
 
     tai: datetime = date_time + timedelta(days=0, seconds=d_at)
 
-    # gps: datetime = date_time + timedelta(days=0, seconds=d_at - 19)
+    gps_offset: int = get_gps_utc_offset()
+    gps: datetime = date_time + timedelta(days=0, seconds=d_at - gps_offset)
 
     tt: datetime = tai + timedelta(days=0, seconds=32.184)
 
@@ -61,6 +64,33 @@ def conv_time(date_time: datetime, d_ut1: float, d_at: int) -> list:
     t_tdb: float = (jd_tdb - 2451545.0) / 36525
 
     return [ut1, tai, tt, tdb, t_ut1, t_tt, t_tdb]
+
+
+def get_gps_utc_offset() -> int:
+    """
+    Gets the integer number of seconds between GPS time and UTC.
+
+    Retrievable from https://www.cnmoc.usff.navy.mil/Our-Commands/United-States-Naval-Observatory/Precise-Time-Department/Global-Positioning-System/GPS-Timing-Data-and-Information/.
+
+    :return: The number of seconds between GPS time and UTC.
+    :rtype: int
+    """
+    # GPS time is always ahead of TAI by exactly 19 seconds (source: https://gssc.esa.int/navipedia/index.php/Transformations_between_Time_Systems).
+    tai_gps_offset: int = 19
+
+    # The offset between TAI and UTC, written as ΔΑΤ, is a number of leap seconds. This is published by IERS as
+    # UTC - TAI in their Bulletin C (latest Bulletin C: https://datacenter.iers.org/data/latestVersion/bulletinC.txt).
+    # ΔAT is negative to show that TAI is ahead of UTC. Therefore, TAI = UTC - ΔAT, or UTC + |ΔAT|.
+    iers = IERS()
+    delta_at: int = iers.d_at
+
+    # The offset between GPS time and UTC is therefore |ΔAT + (GPS to TAI offset)|.
+    # Or GPS = UTC + ΔAT - 19s (from Example 3-7 in Fundamentals)
+    # As of 20/9/2026, the offset is 18 seconds.
+    # This is also published by the US Navy at https://www.cnmoc.usff.navy.mil/Our-Commands/United-States-Naval-Observatory/Precise-Time-Department/Global-Positioning-System/GPS-Timing-Data-and-Information/.
+    offset: int = abs(delta_at + tai_gps_offset)
+
+    return offset
 
 
 def julian_date(date_time: datetime) -> float:
