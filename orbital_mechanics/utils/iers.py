@@ -140,7 +140,12 @@ class IERS:
             return True if (time['dateYear'] == today_year) and (time['dateMonth'] == today_month) and (
                     time['dateDay'] == today_day) else False
 
-        today_entry: dict = [entry for entry in time_series if time_match(entry)][0]
+        today_entry: dict = {}
+        for t in time_series:
+            if time_match(t):
+                today_entry: dict = t
+                break
+
         pole_data: dict = today_entry['dataEOP']['pole']
 
         return [float(pole_data['X']), float(pole_data['Y'])]
