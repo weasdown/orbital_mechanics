@@ -114,11 +114,19 @@ class IERS:
     @property
     def d_at(self) -> int:
         """Gets the latest ΔAT value from the latest Bulletin C."""
-        bulletin_c: str = LatestBulletinC().text
-        bulletin_lines: list[str] = bulletin_c.split('\n')
+        bulletin_c: LatestBulletinC = LatestBulletinC()
+        bulletin_lines: list[str] = bulletin_c.text.split('\n')
 
         value_lead: str = 'UTC-TAI = '
-        value_line: str = [line for line in bulletin_lines if value_lead in line.lstrip()][0]
+
+        try:
+            # Iterate over each line in the list of text lines and extract the one that contains "UTC-TAI = ".
+            # We iterate through the lines in reverse order as the "UTC-TAI = " line is near the bottom of the Bulletin.
+            value_line: str = [line for line in reversed(bulletin_lines) if value_lead in line.lstrip()][0]
+        except IndexError as ie:
+            in_mock: str = f' in mock "{bulletin_c.mock}"' if self._use_mocks else ''
+            raise RuntimeError(
+                f'Could not get ΔAT value from latest Bulletin C - could not find "UTC-TAI = " line{in_mock}.') from ie
 
         lead_index: int = value_line.find(value_lead)
         value: int = int(value_line[lead_index:-1].replace(value_lead, '').rstrip())
@@ -127,11 +135,19 @@ class IERS:
     @property
     def d_ut1(self) -> float:
         """Gets the latest ΔUT1 value from the latest Bulletin D."""
-        bulletin_d: str = LatestBulletinD().text
-        bulletin_lines: list[str] = bulletin_d.split('\n')
+        bulletin_d: LatestBulletinD = LatestBulletinD()
+        bulletin_lines: list[str] = bulletin_d.text.split('\n')
 
         value_lead: str = 'DUT1 = '
-        value_line: str = [line.lstrip() for line in bulletin_lines if line.lstrip().startswith(value_lead)][0]
+        try:
+            # Iterate over each line in the list of text lines and extract the one that starts with "DUT1 = ".
+            # We iterate through the lines in reverse order as the "DUT1 = " line is near the bottom of the Bulletin.
+            value_line: str = \
+                [line.lstrip() for line in reversed(bulletin_lines) if line.lstrip().startswith(value_lead)][0]
+        except IndexError as ie:
+            in_mock: str = f' in mock "{bulletin_d.mock}"' if self._use_mocks else ''
+            raise RuntimeError(
+                f'Could not get ΔUT1 value from latest Bulletin D - could not find "DUT1 = " line{in_mock}.') from ie
 
         value: float = float(value_line.replace(value_lead, '').replace(' s', ''))
         return value
