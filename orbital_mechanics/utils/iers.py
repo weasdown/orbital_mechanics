@@ -8,9 +8,10 @@ mocks_path: Path = Path('orbital_mechanics/mocks')
 
 
 class LatestBulletin(ABC):
-    def __init__(self, letter: str):
+    def __init__(self, letter: str, use_mocks: bool = True):
         self._letter: str = letter
         self.date_retrieved = datetime.today().date()
+        self._use_mocks: bool = use_mocks
 
     @property
     @abstractmethod
@@ -98,6 +99,9 @@ class LatestBulletinD(LatestBulletin):
 
 class IERS:
     """Class for getting time correction values and Earth rotation poles from IERS."""
+
+    def __init__(self, use_mocks: bool = True):
+        self._use_mocks: bool = use_mocks
 
     @property
     def d_at(self) -> int:
