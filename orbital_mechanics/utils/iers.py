@@ -1,3 +1,4 @@
+import json
 from abc import ABC, abstractmethod
 from datetime import datetime
 from pathlib import Path
@@ -14,9 +15,16 @@ class LatestBulletin(ABC):
         self._use_mocks: bool = use_mocks
 
     @property
-    @abstractmethod
-    def json(self) -> str:
-        pass
+    def json(self) -> dict:
+        if self._use_mocks:
+            try:
+                with open(self.mock) as f:
+                    return json.loads(f.read())
+            except FileNotFoundError:
+                pass
+
+        # If fail to use mock or don't want to, get the JSON from the IERS website.
+        return r.get(self.json_url).json()
 
     @property
     @abstractmethod
@@ -30,6 +38,14 @@ class LatestBulletin(ABC):
 
     @property
     def text(self) -> str:
+        if self._use_mocks:
+            try:
+                with open(self.mock) as f:
+                    return f.read()
+            except FileNotFoundError:
+                pass
+
+        # If fail to use mock or don't want to, get the text from the IERS website.
         resp: r.Response = r.get(self.url)
         return resp.text
 
