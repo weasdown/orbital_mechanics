@@ -113,7 +113,11 @@ class IERS:
 
     @property
     def d_at(self) -> int:
-        """Gets the latest ΔAT value from the latest Bulletin C."""
+        """
+        Gets the latest ΔAT value from the latest Bulletin C.
+
+        This value represents the number of leap seconds between UTC and TAI.
+        """
         bulletin_c: LatestBulletinC = LatestBulletinC(self._use_mocks)
         bulletin_lines: list[str] = bulletin_c.text.split('\n')
 
