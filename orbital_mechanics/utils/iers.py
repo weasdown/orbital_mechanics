@@ -66,10 +66,6 @@ class LatestBulletinA(LatestBulletin):
         super().__init__('A')
 
     @property
-    def json(self) -> dict:
-        return r.get(self.json_url).json()
-
-    @property
     def json_url(self):
         return f'https://datacenter.iers.org/data/json/bulletin{self._letter.lower()}-{self.vol.lower()}-{self.num}.json'
 
@@ -89,10 +85,6 @@ class LatestBulletinA(LatestBulletin):
 class LatestBulletinC(LatestBulletin):
     def __init__(self):
         super().__init__('C')
-
-    @property
-    def json(self) -> dict:
-        return r.get(self.json_url).json()
 
     @property
     def json_url(self):
