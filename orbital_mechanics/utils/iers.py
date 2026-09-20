@@ -164,13 +164,13 @@ class IERS:
         bulletin_a: LatestBulletinA = LatestBulletinA()
         time_series: list[dict] = bulletin_a.json['EOP']['data']['timeSeries']
 
+        today: datetime = datetime.today()
+        today_year = today.strftime('%Y')
+        today_month = today.strftime('%m')
+        today_day = today.strftime('%d')
+
         # Find today's entry in the time series.
         def time_match(entry: dict) -> bool:
-            today: datetime = datetime.today()
-            today_year = today.strftime('%Y')
-            today_month = today.strftime('%m')
-            today_day = today.strftime('%d')
-
             time: dict = entry['time']
 
             return True if (time['dateYear'] == today_year) and (time['dateMonth'] == today_month) and (
